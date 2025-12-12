@@ -1,5 +1,6 @@
 #include "../../include/core/TaskManager.hpp"
 
+
 void TaskManager::addTask(const Task &task)
 {
     std::lock_guard<std::mutex> lock(mtx);
@@ -18,6 +19,10 @@ void TaskManager::addTask(const Task &task)
     }
     
     tasks.push_back(task);
+}
 
-    std::cout << "Done.\n";
+std::vector<Task> TaskManager::getAllTasks()
+{
+    std::lock_guard<std::mutex> lock(mtx);
+    return tasks;
 }

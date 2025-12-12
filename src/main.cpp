@@ -21,7 +21,7 @@ Task task1 = {
 Task task2 = {
     "2", 
     "Bob", 
-    "",
+    "Gggg",
     {},
     {},
     {},
@@ -29,6 +29,13 @@ Task task2 = {
 };
     manager.addTask(task1);
     manager.addTask(task2);
+
+    std::vector<Task> allTasks = manager.getAllTasks();
+    for (auto &&task : allTasks)
+    {
+        std::cout << "ID: " << task.Id << "\tName: " << task.name << std::endl;
+    }
+    
 
     return 0;
 }
