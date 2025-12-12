@@ -36,6 +36,13 @@ Task task2 = {
         std::cout << "ID: " << task.Id << "\tName: " << task.name << std::endl;
     }
     
+    manager.removeTask("2");
+
+    std::vector<Task> allTasks1 = manager.getAllTasks();
+    for (auto &&task : allTasks1)
+    {
+        std::cout << "ID: " << task.Id << "\tName: " << task.name << std::endl;
+    }
 
     return 0;
 }

@@ -2,6 +2,7 @@
 #include "Task.hpp"
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <thread>
 #include <mutex>
 #include <atomic>
@@ -14,7 +15,7 @@ class TaskManager
 public:
 
     void addTask(const Task& task);
-    bool removeTask(const std::string& id);
+    void removeTask(const std::string& id);
     bool editTask(const std::string& id, const Task& updatedTask);
     Task* getTask(const std::string& id);
 
