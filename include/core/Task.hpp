@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../include/utils/TaskException.hpp"
 #include <string>
 #include <vector>
 #include <chrono>
@@ -32,6 +33,5 @@ struct Task
     std::chrono::system_clock::time_point end_time;
     std::chrono::milliseconds duration;
     std::vector<std::string> resources;
-    std::vector<std::string> dependencies;
 
 };
