@@ -16,7 +16,7 @@ public:
 
     void addTask(const Task& task);
     void removeTask(const std::string& id);
-    bool editTask(const std::string& id, const Task& updatedTask);
+    void editTask(const std::string& id, const Task& updatedTask);
     Task* getTask(const std::string& id);
 
     bool startTask(const std::string& id);
@@ -37,7 +37,7 @@ public:
 
     void sortTasksByPriority();
     void sortTasksByStatus();
-    void checkDependencies(const std::string& id);
+
 private:
 
     std::vector<Task> tasks;

@@ -1,6 +1,7 @@
 #include "../../include/core/TaskManager.hpp"
 
 
+
 void TaskManager::addTask(const Task &task)
 {
     std::lock_guard<std::mutex> lock(mtx);
@@ -36,8 +37,30 @@ void TaskManager::removeTask(const std::string &id)
     tasks.erase(it);
     std::cout << "Task removed: ID = " << id << std::endl;
 }
+
+void TaskManager::editTask(const std::string &id, const Task &updatedTask)
+{
+    std::lock_guard<std::mutex> lock(mtx);
+
+    for (auto &&task : tasks)
+    {
+        if (task.Id == id)
+        {
+            task.name = updatedTask.name;
+            task.description = updatedTask.description;
+            task.priority = updatedTask.priority;
+            task.status = updatedTask.status;
+            
+            return;            
+        }
+        
+    }
+    throw TaskException("Task with ID " + id + " nit found.");
+}
+
 std::vector<Task> TaskManager::getAllTasks()
 {
     std::lock_guard<std::mutex> lock(mtx);
     return tasks;
 }
+
