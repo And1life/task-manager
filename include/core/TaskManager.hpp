@@ -6,6 +6,9 @@
 #include <thread>
 #include <mutex>
 #include <atomic>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 #include <iostream>
 
 
@@ -37,6 +40,8 @@ public:
 
     void sortTasksByPriority();
     void sortTasksByStatus();
+
+    std::string generateId();
 
 private:
 

@@ -42,5 +42,14 @@ Task task2 = {
     {
         std::cout << "ID: " << task.Id << "\tName: " << task.name << std::endl;
     }
+
+    // Test generateId()
+    std::cout << std::endl;
+    for (size_t i = 0; i < 10; ++i)
+    {
+        std::cout << manager.generateId() << std::endl;
+    }
+    
+
     return 0;
 }

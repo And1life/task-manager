@@ -64,3 +64,9 @@ std::vector<Task> TaskManager::getAllTasks()
     return tasks;
 }
 
+std::string TaskManager::generateId()
+{
+    boost::uuids::random_generator gen;
+    boost::uuids::uuid uuid = gen();
+    return boost::uuids::to_string(uuid).substr(0, 8);
+}
