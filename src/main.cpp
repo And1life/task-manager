@@ -1,55 +1,15 @@
 #include <iostream>
-#include "../include/core/Task.hpp"
 #include "../include/core/TaskManager.hpp"
+#include "../include/ConsoleInterface.hpp"
 
 
 int main(int argc, char const *argv[])
 {
 
     TaskManager manager;
-
-Task task1 = {
-    "1",
-    "Bob",
-    "Hello",
-    {},
-    {},
-    {},
-    {},
-};
-
-Task task2 = {
-    "1", 
-    "John", 
-    "run",
-    {},
-    {},
-    {},
-    {},
-};
-    manager.addTask(task1);
-
-    std::vector<Task> allTasks = manager.getAllTasks();
-    for (auto &&task : allTasks)
-    {
-        std::cout << "ID: " << task.Id << "\tName: " << task.name << std::endl;
-    }
-
-    manager.editTask("1", task2);
-
-    std::vector<Task> allTasks1 = manager.getAllTasks();
-    for (auto &&task : allTasks1)
-    {
-        std::cout << "ID: " << task.Id << "\tName: " << task.name << std::endl;
-    }
-
-    // Test generateId()
-    std::cout << std::endl;
-    for (size_t i = 0; i < 10; ++i)
-    {
-        std::cout << manager.generateId() << std::endl;
-    }
-    
+    ConsoleInterface console(manager);
+    console.run();
+        
 
     return 0;
 }
