@@ -42,8 +42,8 @@ public:
     void sortTasksByStatus();
 
     std::string generateId();
-    std::string priorityToString(Priority priority);
-    std::string statusToString(Status status);
+    static std::string priorityToString(Priority priority);
+    static std::string statusToString(Status status);
 
 private:
 
