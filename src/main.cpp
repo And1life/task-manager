@@ -10,7 +10,8 @@ int main(int argc, char const *argv[])
     {
         "1",
         "Clean",
-        "clean room"
+        "clean room",
+        Priority::HIGH
     };
 
     Task task2 = 

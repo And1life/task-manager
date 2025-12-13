@@ -8,8 +8,32 @@ ConsoleInterface::ConsoleInterface(TaskManager &manager)
 
 void ConsoleInterface::run()
 {
-    // printMainMenu();
-    ViewAllTasks();
+    while (true)
+    {
+        printMainMenu();
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        switch (choice)
+        {
+        case 1:
+            ViewAllTasks();
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            std::cout << "Exiting..." << std::endl;
+            return;
+        default:
+            std::cerr << "Invalid choice. Try again." << std::endl;
+        }
+    }
 }
 void ConsoleInterface::printMainMenu() const
 {
