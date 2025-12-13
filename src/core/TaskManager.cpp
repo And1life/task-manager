@@ -70,3 +70,31 @@ std::string TaskManager::generateId()
     boost::uuids::uuid uuid = gen();
     return boost::uuids::to_string(uuid).substr(0, 8);
 }
+
+std::string TaskManager::priorityToString(Priority priority)
+{
+    switch (priority)
+    {
+
+    case Priority::LOW :        return "Low";
+    case Priority::MEDIUM :     return "Medium";
+    case Priority::HIGH :       return "High";
+    default :                   return "Unknown";        
+    
+    }
+}
+
+std::string TaskManager::statusToString(Status status)
+{
+    switch (status)
+    {
+
+    case Status::PENDING :          return "Pending";
+    case Status::RUNNING :          return "Running";
+    case Status::PAUSED :           return "Paused";
+    case Status::COMPLETED :        return "Completed";
+    case Status::FAILED :           return "Failed";
+    default :                       return "Unknown";        
+    
+    }
+}
