@@ -32,6 +32,7 @@ void ConsoleInterface::run()
             handleRemoveTask();
             break;
         case 4:
+            handleEditTask();
             break;
         case 5:
             std::cout << "Exiting..." << std::endl;
@@ -135,6 +136,11 @@ void ConsoleInterface::handleRemoveTask()
     clearConsole();
     ViewAllTasks();
 
+    if (manager.getAllTasks().empty())
+    {
+        return;
+    }
+      
     std::string id;
     std::cout << "Enter task ID to remove: ";
     std::getline(std::cin, id);
@@ -152,4 +158,70 @@ void ConsoleInterface::handleRemoveTask()
 
 void ConsoleInterface::handleEditTask()
 {
+    clearConsole();
+    ViewAllTasks();
+    
+    if (manager.getAllTasks().empty())
+    {
+        return;
+    }
+    
+    std::string id, newName, newDescription;
+    Priority newPriority;
+    short choice;
+    std::cout << "Enter task ID to edit: ";
+    std::getline(std::cin, id);
+    std::cout << "Enter new task name (leave empty to skip): ";
+    std::getline(std::cin, newName);
+    std::cout << "Enter new description (leave empty to skip): ";
+    std::getline(std::cin, newDescription);
+    std::cout << "Choice new priority" << std::endl;
+    std::cout << "1: LOW\t2: MEDIUM\t3: HIGH" << std::endl;
+    std::cin >> choice;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    switch (choice)
+    {
+    case 1:
+        newPriority = Priority::LOW;
+        break;
+
+    case 2:
+        newPriority = Priority::MEDIUM;
+        break;
+
+    case 3:
+        newPriority = Priority::HIGH;
+        break;
+
+    default:
+        newPriority = Priority::UNKNOWN;
+        break;
+    }
+    Task newTask
+    {
+        {},
+        newName,
+        newDescription,
+        newPriority,
+        {},
+        {},
+        {},
+        {},
+        {}
+    };
+
+    try
+    {
+        if (manager.editTask(id, newTask))
+        {
+            std::cout << "Task edited successfully!" << std::endl;
+        } else 
+        {
+            std::cout << "Task no changes made." << std::endl;
+        }    
+    }
+    catch(const TaskException& e)
+    {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
 }

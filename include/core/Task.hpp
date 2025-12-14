@@ -9,7 +9,8 @@ enum class Priority
 {
     LOW,
     MEDIUM,
-    HIGH
+    HIGH,
+    UNKNOWN
 };
 
 enum class Status

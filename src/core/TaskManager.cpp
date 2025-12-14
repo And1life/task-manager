@@ -44,24 +44,35 @@ void TaskManager::removeTask(const std::string &id)
     tasks.erase(it);
 }
 
-void TaskManager::editTask(const std::string &id, const Task &updatedTask)
+bool TaskManager::editTask(const std::string &id, const Task &updatedTask)
 {
     std::lock_guard<std::mutex> lock(mtx);
 
+    bool edited = false;
     for (auto &&task : tasks)
     {
         if (task.Id == id)
         {
-            task.name = updatedTask.name;
-            task.description = updatedTask.description;
-            task.priority = updatedTask.priority;
-            task.status = updatedTask.status;
-            
-            return;            
+            if (!updatedTask.name.empty())
+            {
+                task.name = updatedTask.name;
+                edited = true;
+            }
+            if (!updatedTask.description.empty())
+            {
+                task.description = updatedTask.description;
+                edited = true;
+            }
+            if (updatedTask.priority != Priority::UNKNOWN)
+            {
+                task.priority = updatedTask.priority;
+                edited = true;
+            }
+            return edited;            
         }
         
     }
-    throw TaskException("Task with ID " + id + " nit found.");
+    throw TaskException("Task with ID " + id + " not found.");  
 }
 
 std::vector<Task> TaskManager::getAllTasks()

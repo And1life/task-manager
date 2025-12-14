@@ -19,7 +19,7 @@ public:
 
     void addTask(const Task& task);
     void removeTask(const std::string& id);
-    void editTask(const std::string& id, const Task& updatedTask);
+    bool editTask(const std::string& id, const Task& updatedTask);
     Task* getTask(const std::string& id);
 
     bool startTask(const std::string& id);
