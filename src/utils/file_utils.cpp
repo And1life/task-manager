@@ -33,11 +33,70 @@ bool FileUtils::saveTasksToFile(const std::vector<Task> &tasks, const std::strin
             jsonTasks.push_back(jsonTask);
         }
         
+        std::ofstream file(filename);
+        if (!file.is_open())
+        {
+            return false;
+        }
+
+        file << jsonTasks.dump(4);
+        file.close();
+
+        return true;
 
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        return false;
+    }
+    
+}
+
+bool FileUtils::loadTasksFromFile(std::vector<Task> &tasks, const std::string &filename)
+{
+    try
+    {
+        std::ifstream file(filename);
+        if (!file.is_open())
+        {
+            return false;
+        }
+
+        nlohmann::json jsonTasks;
+        file >> jsonTasks;
+        file.close();
+
+        for (auto && jsonTask : jsonTasks)
+        {
+            Task task;
+            task.Id = jsonTask["ID"];
+            task.name = jsonTask["name"];
+            task.description = jsonTask["description"];
+            task.priority = static_cast<Priority>(jsonTask["priority"].get<int>());
+            task.status = static_cast<Status>(jsonTask["status"].get<int>());
+
+            task.created_at = TimeUtils::stringToTimePoint(jsonTask["created_at"]);
+
+            if (jsonTask.contains("start_time"))
+            {
+                task.start_time = TimeUtils::stringToTimePoint(jsonTask["start_time"]);
+            }
+            
+            if (jsonTask.contains("end_time"))
+            {
+                task.end_time = TimeUtils::stringToTimePoint(jsonTask["end_time"]);
+            }
+
+            task.duration = std::chrono::milliseconds(jsonTask["duration"].get<int64_t>());
+
+            tasks.push_back(task);
+        }
+        
+        return true;
+    }
+    catch(const std::exception& e)
+    {
+        return false;
     }
     
 }
