@@ -20,6 +20,9 @@ cmake_install.cmake
 docs/html/
 docs/latex/
 
+# Directories with dependencies
+third_party/
+
 # Ignore binary and object files
 *.o
 *.obj
