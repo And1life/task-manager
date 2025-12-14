@@ -35,6 +35,12 @@ void ConsoleInterface::run()
             handleEditTask();
             break;
         case 5:
+            handleSaveTasks();
+            break;
+        case 6:
+            handleLoadTasks();
+            break;
+        case 7:
             std::cout << "Exiting..." << std::endl;
             return;
         default:
@@ -64,7 +70,9 @@ void ConsoleInterface::printMainMenu() const
     std::cout << "2. Add new task" << std::endl;
     std::cout << "3. Remove a task" << std::endl;
     std::cout << "4. Edit a tasks" << std::endl;
-    std::cout << "5. Exit" << std::endl;
+    std::cout << "5. Save a tasks to file" << std::endl;
+    std::cout << "6. Load a tasks from file" << std::endl;
+    std::cout << "7. Exit" << std::endl;
     std::cout << "Enter your choice: ";
 }
 
