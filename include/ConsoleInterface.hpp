@@ -19,6 +19,7 @@ private:
     void clearConsole() const;
     void printMainMenu() const;
     void printPriorityMenu() const;
+    Priority selectPriority();
     void ViewAllTasks() const;
     void handleAddTask();
     void handleRemoveTask();

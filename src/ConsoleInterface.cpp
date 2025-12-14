@@ -77,6 +77,26 @@ void ConsoleInterface::printPriorityMenu() const
     std::cout << "Enter your choice: ";
 }
 
+Priority ConsoleInterface::selectPriority()
+{
+    while (true)
+    {
+        printPriorityMenu();
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        switch (choice)
+        {
+        case 1: return Priority::LOW;
+        case 2: return Priority::MEDIUM;
+        case 3: return Priority::HIGH;
+        default:
+            std::cerr << "invalid choice. Try again." << std::endl;
+        }
+    }
+}
+
 void ConsoleInterface::ViewAllTasks() const
 {
     std::vector<Task> tasks = manager.getAllTasks();
