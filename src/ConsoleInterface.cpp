@@ -264,3 +264,56 @@ void ConsoleInterface::handleEditTask()
         std::cerr << "Error: " << e.what() << '\n';
     }
 }
+
+void  ConsoleInterface::handleSaveTasks()
+{
+    clearConsole();
+    std::cout << "=== Save Tasks to File ===" << std::endl;
+    std::string filename;
+    std::cout << "Enter filename (tasks.json): ";
+    std::getline(std::cin, filename);
+
+    try
+    {
+        if (manager.saveToFile(filename))
+        {
+            std::cout << "Tasks saved successfully to " << filename << "!" << std::endl;
+        }
+        else
+        {
+            std::cerr << "Failed to save tasks." << std::endl;
+        }  
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    
+}
+
+void  ConsoleInterface::handleLoadTasks()
+{
+    clearConsole();
+    std::cout << "=== Load Tasks from File ===" << std::endl;
+
+    std::string filename;
+    std::cout << "Enter filename (tasks.json): ";
+    std::getline(std::cin, filename);
+
+    try
+    {
+        if (manager.loadFromFile(filename))
+        {
+            std::cout << "Tasks loaded successfully from " << filename << "!" << std::endl;
+        }
+        else
+        {
+            std::cerr << "Failed to load tasks." << std::endl;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
+    
+}

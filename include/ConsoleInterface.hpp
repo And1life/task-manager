@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../include/core/TaskManager.hpp"
+#include "utils/file_utils.hpp"
 #include <iomanip>
 #include <cstdlib> 
 
@@ -24,4 +25,6 @@ private:
     void handleAddTask();
     void handleRemoveTask();
     void handleEditTask();
+    void handleSaveTasks();
+    void handleLoadTasks();
 };

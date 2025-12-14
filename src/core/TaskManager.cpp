@@ -1,4 +1,5 @@
 #include "../../include/core/TaskManager.hpp"
+#include "TaskManager.hpp"
 
 
 
@@ -79,6 +80,18 @@ std::vector<Task> TaskManager::getAllTasks()
 {
     std::lock_guard<std::mutex> lock(mtx);
     return tasks;
+}
+
+bool TaskManager::saveToFile(const std::string &filename)
+{
+    std::lock_guard<std::mutex> lock(mtx);
+    return FileUtils::saveTasksToFile(tasks, filename);
+}
+
+bool TaskManager::loadFromFile(const std::string &filename)
+{
+    std::lock_guard<std::mutex> lock(mtx);
+    return FileUtils::loadTasksFromFile(tasks, filename);
 }
 
 std::string TaskManager::generateId()
