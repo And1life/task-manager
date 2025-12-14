@@ -33,5 +33,4 @@ struct Task
     std::chrono::system_clock::time_point start_time;
     std::chrono::system_clock::time_point end_time;
     std::chrono::milliseconds duration;
-
 };
