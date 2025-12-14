@@ -1,6 +1,7 @@
 #include "../include/ConsoleInterface.hpp"
 
 
+
 ConsoleInterface::ConsoleInterface(TaskManager &manager)
     : manager(manager) 
 {
@@ -10,11 +11,14 @@ void ConsoleInterface::run()
 {
     while (true)
     {
+        clearConsole();
         printMainMenu();
 
         int choice;
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        clearConsole();
 
         switch (choice)
         {
@@ -33,8 +37,23 @@ void ConsoleInterface::run()
         default:
             std::cerr << "Invalid choice. Try again." << std::endl;
         }
+
+        std::cout << "\nPress Enter to continue...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
+
+
+void ConsoleInterface::clearConsole() const
+{
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+
 void ConsoleInterface::printMainMenu() const
 {
     std::cout << "\n=== Task Manager ===" << std::endl;
@@ -73,5 +92,16 @@ void ConsoleInterface::ViewAllTasks() const
                   << std::setw(15) << TaskManager::priorityToString(task.priority)
                   << std::setw(15) << TaskManager::statusToString(task.status)
                   << std::endl;
-    }   
+    }
+}
+void ConsoleInterface::handleAddTask()
+{
+}
+
+void ConsoleInterface::handleRemoveTask()
+{
+}
+
+void ConsoleInterface::handleEditTask()
+{
 }

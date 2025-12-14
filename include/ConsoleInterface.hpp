@@ -2,6 +2,7 @@
 
 #include "../include/core/TaskManager.hpp"
 #include <iomanip>
+#include <cstdlib> 
 
 class ConsoleInterface
 {
@@ -15,6 +16,7 @@ private:
 
     TaskManager& manager;
 
+    void clearConsole() const;
     void printMainMenu() const;
     void ViewAllTasks() const;
     void handleAddTask();
