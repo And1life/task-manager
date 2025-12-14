@@ -63,7 +63,7 @@ bool TaskManager::editTask(const std::string &id, const Task &updatedTask)
                 task.description = updatedTask.description;
                 edited = true;
             }
-            if (updatedTask.priority != Priority::UNKNOWN)
+            if (updatedTask.priority != task.priority)
             {
                 task.priority = updatedTask.priority;
                 edited = true;

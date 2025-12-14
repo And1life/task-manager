@@ -189,65 +189,75 @@ void ConsoleInterface::handleEditTask()
 {
     clearConsole();
     ViewAllTasks();
-
+    
     if (manager.getAllTasks().empty())
     {
         return;
     }
     
-    std::string id, newName, newDescription;
-    Priority newPriority;
-    short choice;
+    std::cout << "\n=== Edit Task ===" << std::endl;
+    std::string id;
     std::cout << "Enter task ID to edit: ";
     std::getline(std::cin, id);
-    std::cout << "Enter new task name (leave empty to skip): ";
-    std::getline(std::cin, newName);
-    std::cout << "Enter new description (leave empty to skip): ";
-    std::getline(std::cin, newDescription);
-    std::cout << "Choice new priority" << std::endl;
-    std::cout << "1: LOW\t2: MEDIUM\t3: HIGH" << std::endl;
-    std::cin >> choice;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    switch (choice)
-    {
-    case 1:
-        newPriority = Priority::LOW;
-        break;
-
-    case 2:
-        newPriority = Priority::MEDIUM;
-        break;
-
-    case 3:
-        newPriority = Priority::HIGH;
-        break;
-
-    default:
-        newPriority = Priority::UNKNOWN;
-        break;
-    }
-    Task newTask
-    {
-        {},
-        newName,
-        newDescription,
-        newPriority,
-        {},
-        {},
-        {},
-        {},
-        {}
-    };
 
     try
     {
-        if (manager.editTask(id, newTask))
+        clearConsole();
+        Task currentTask;
+        bool taskFound = false;
+        for (auto &&task : manager.getAllTasks())
         {
-            std::cout << "Task edited successfully!" << std::endl;
-        } else 
+            if (task.Id == id)
+            {
+                currentTask = task;
+                taskFound = true;
+                break;
+            }  
+        }
+        
+        if (!taskFound)
         {
-            std::cout << "Task no changes made." << std::endl;
-        }    
+            std::cerr << "Task not found." << std::endl;
+            return;
+        }
+
+        std::cout << "\nCurrent task details:" << std::endl;
+        std::cout << "Name: " << currentTask.name << std::endl;
+        std::cout << "Description: " << currentTask.description << std::endl;
+        std::cout << "Priority: " << TaskManager::priorityToString(currentTask.priority) << std::endl;
+        std::cout << "Status: " << TaskManager::statusToString(currentTask.status) << std::endl;
+
+
+        std::string newName, newDescription;
+        Priority newPriority = currentTask.priority;
+
+        std::cout << "\nEnter new task name (leave empty to skip): ";
+        std::getline(std::cin, newName);
+
+        std::cout << "Enter new description (leave empty to skip): ";
+        std::getline(std::cin, newDescription);
+
+        std::cout << "Edit priority? (y/n):";
+        std::string editPriority;
+        std::getline(std::cin, editPriority);
+        if (editPriority == "y" || editPriority == "Y")
+        {
+            newPriority = selectPriority();
+        }
+        
+        Task updatedTask = currentTask;
+        updatedTask.name = newName;
+        updatedTask.description = newDescription;
+        updatedTask.priority = newPriority;
+
+
+            if (manager.editTask(id, updatedTask))
+            {
+                std::cout << "\nTask edited successfully!" << std::endl;
+            } else 
+            {
+                std::cout << "\nTask no changes made." << std::endl;
+            }    
     }
     catch(const TaskException& e)
     {
