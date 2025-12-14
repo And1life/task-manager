@@ -68,6 +68,15 @@ void ConsoleInterface::printMainMenu() const
     std::cout << "Enter your choice: ";
 }
 
+void ConsoleInterface::printPriorityMenu() const
+{
+    std::cout << "\n=== Select Priority ===" << std::endl;
+    std::cout << "1. Low" << std::endl;
+    std::cout << "2. Medium" << std::endl;
+    std::cout << "3. High" << std::endl;
+    std::cout << "Enter your choice: ";
+}
+
 void ConsoleInterface::ViewAllTasks() const
 {
     std::vector<Task> tasks = manager.getAllTasks();
@@ -160,7 +169,7 @@ void ConsoleInterface::handleEditTask()
 {
     clearConsole();
     ViewAllTasks();
-    
+
     if (manager.getAllTasks().empty())
     {
         return;
