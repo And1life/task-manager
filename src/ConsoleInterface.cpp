@@ -29,6 +29,7 @@ void ConsoleInterface::run()
             handleAddTask();
             break;
         case 3:
+            handleRemoveTask();
             break;
         case 4:
             break;
@@ -131,6 +132,22 @@ void ConsoleInterface::handleAddTask()
 
 void ConsoleInterface::handleRemoveTask()
 {
+    clearConsole();
+    ViewAllTasks();
+
+    std::string id;
+    std::cout << "Enter task ID to remove: ";
+    std::getline(std::cin, id);
+
+    try
+    {
+        manager.removeTask(id);
+        std::cout << "Task removed successfully!" << std::endl;
+    }
+    catch(const TaskException& e)
+    {
+        std::cerr << "Error:" << e.what() << std::endl;
+    }
 }
 
 void ConsoleInterface::handleEditTask()

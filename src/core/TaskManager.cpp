@@ -42,7 +42,6 @@ void TaskManager::removeTask(const std::string &id)
     }
     
     tasks.erase(it);
-    std::cout << "Task removed: ID = " << id << std::endl;
 }
 
 void TaskManager::editTask(const std::string &id, const Task &updatedTask)
