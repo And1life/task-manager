@@ -6,11 +6,18 @@ void TaskManager::addTask(const Task &task)
 {
     std::lock_guard<std::mutex> lock(mtx);
 
+    Task newTask = task;
+    if (newTask.Id.empty())
+    {
+        newTask.Id = generateId();
+    }
+    
+
     for (auto &&existingTask : tasks)
     {
-        if (existingTask.Id == task.Id)
+        if (existingTask.Id == newTask.Id)
         {
-            throw TaskException("Task with ID " + task.Id + " already exists.");           
+            throw TaskException("Task with ID " + newTask.Id + " already exists.");           
         }       
     }
     
@@ -19,7 +26,7 @@ void TaskManager::addTask(const Task &task)
         throw TaskException("Task name or description can't be empty.");
     }
     
-    tasks.push_back(task);
+    tasks.push_back(newTask);
 }
 
 void TaskManager::removeTask(const std::string &id)

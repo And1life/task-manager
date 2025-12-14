@@ -26,6 +26,7 @@ void ConsoleInterface::run()
             ViewAllTasks();
             break;
         case 2:
+            handleAddTask();
             break;
         case 3:
             break;
@@ -96,6 +97,36 @@ void ConsoleInterface::ViewAllTasks() const
 }
 void ConsoleInterface::handleAddTask()
 {
+    clearConsole();
+    std::string name, description;
+    std::cout << "Enter task name: ";
+    std::getline(std::cin, name);
+    std::cout << "Enter task description: ";
+    std::getline(std::cin, description);
+
+    Task newTask
+    {
+        {},
+        name,
+        description,
+        Priority::MEDIUM,
+        Status::PENDING,
+        std::chrono::system_clock::now(),
+        {},
+        {},
+        {}
+    };
+
+    try
+    {
+        manager.addTask(newTask);
+        std::cout << "Task added successfully!" << std::endl;
+    }
+    catch(const TaskException& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    
 }
 
 void ConsoleInterface::handleRemoveTask()
