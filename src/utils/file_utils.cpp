@@ -33,7 +33,7 @@ bool FileUtils::saveTasksToFile(const std::vector<Task> &tasks, const std::strin
             jsonTasks.push_back(jsonTask);
         }
         
-        std::ofstream file(filename);
+        std::ofstream file(filename, std::ios::app);
         if (!file.is_open())
         {
             return false;
@@ -59,12 +59,16 @@ bool FileUtils::loadTasksFromFile(std::vector<Task> &tasks, const std::string &f
         std::ifstream file(filename);
         if (!file.is_open())
         {
+            std::cerr << "Failed to open file: " << filename << std::endl;
             return false;
         }
 
         nlohmann::json jsonTasks;
         file >> jsonTasks;
         file.close();
+
+        std::cout << "Clearing current tasks before loading new ones..." << std::endl;
+        tasks.clear();
 
         for (auto && jsonTask : jsonTasks)
         {

@@ -310,6 +310,7 @@ void  ConsoleInterface::handleLoadTasks()
 
     try
     {
+
         if (manager.loadFromFile(filename))
         {
             std::cout << "Tasks loaded successfully from " << filename << "!" << std::endl;
